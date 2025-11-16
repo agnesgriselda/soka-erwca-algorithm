@@ -114,6 +114,18 @@ Setelah skrip scheduler selesai dieksekusi, Anda akan melihat dua jenis output:
 Terminal Anda akan menampilkan log eksekusi dan diakhiri dengan rangkuman metrik kinerja, seperti contoh di bawah ini:
 
 
+<img width="596" height="320" alt="Screenshot 2025-11-16 204435" src="https://github.com/user-attachments/assets/27d89ea2-6305-451d-b2ad-002ff9fc0416" />
+
+
+<img width="530" height="291" alt="Screenshot 2025-11-16 204421" src="https://github.com/user-attachments/assets/80a82a19-3227-401c-879f-66e4b1527ee5" />
+
+
 ### 2. File Hasil CSV
 
 Sebuah file CSV baru akan dibuat di direktori proyek Anda (misalnya, `results_erwca.csv` atau `results_rr.csv`) dengan format yang merinci eksekusi setiap tugas.
+
+
+<img width="1254" height="677" alt="Screenshot 2025-11-16 210929" src="https://github.com/user-attachments/assets/d059c2d4-7904-42af-9bd7-42e37bb09efc" />
+
+
+<img width="1193" height="703" alt="Screenshot 2025-11-16 210943" src="https://github.com/user-attachments/assets/dcbed8db-de82-40c3-9d1d-a23b53717107" />
