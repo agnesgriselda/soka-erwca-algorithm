@@ -4,9 +4,8 @@
 
 Repositori ini berisi kode untuk pengujian penjadwalan tugas (*Task Scheduling*) pada server-server di lingkungan Departemen Teknologi Informasi ITS. Proyek ini dikembangkan untuk memenuhi tugas mata kuliah Strategi Optimasi Kompatasi Awan (SOKA).
 
-Tujuan utama dari proyek ini adalah untuk mengimplementasikan dan membandingkan kinerja dua algoritma penjadwalan:
-1.  **Round Robin (RR):** Algoritma dasar sebagai *baseline*.
-2.  **Enhanced Water Cycle Algorithm (ErWCA):** Algoritma metaheuristik untuk optimisasi.
+Tujuan utama dari proyek ini adalah untuk mengimplementasikan algoritma scheduling:
+1.  **Enhanced Water Cycle Algorithm (ErWCA):** Algoritma metaheuristik untuk optimisasi.
 
 ## Arsitektur Sistem
 
@@ -30,7 +29,7 @@ Sebelum menjalankan, pastikan perangkat Anda memenuhi syarat berikut:
 
 1.  **Clone Repositori:**
     ```bash
-    git clone <URL_GITHUB_ANDA>
+    git clone https://github.com/agnesgriselda/soka-erwca-algorithm.git
     cd <NAMA_FOLDER_PROYEK>
     ```
 
