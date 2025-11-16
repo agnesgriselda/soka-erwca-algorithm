@@ -44,7 +44,7 @@ Sebelum menjalankan, pastikan perangkat Anda memenuhi syarat berikut:
 
 1.  **Clone Repositori (jika belum):**
     ```bash
-    git clone <URL_GITHUB_ANDA>
+    git clone https://github.com/agnesgriselda/soka-erwca-algorithm.git
     cd <NAMA_FOLDER_PROYEK>
     ```
 
