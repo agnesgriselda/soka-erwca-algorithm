@@ -14,7 +14,7 @@ Sistem ini menggunakan arsitektur *Dispatcher*, di mana proses penjadwalan dan e
 1.  **Server Worker (4 Server ITS):** Setiap server menjalankan sebuah aplikasi web (Flask) di dalam kontainer Docker. Tugasnya adalah menunggu perintah eksekusi tugas melalui API endpoint (`/task/<index>`).
 2.  **Scheduler (Komputer Lokal):** Sebuah skrip Python (`scheduler.py`) yang dijalankan dari komputer lokal pengguna. Tugasnya adalah:
     *   Membaca daftar tugas dari `dataset.txt`.
-    *   Menjalankan algoritma penjadwalan (RR atau ErWCA) untuk memetakan setiap tugas ke salah satu server worker.
+    *   Menjalankan algoritma penjadwalan (ErWCA) untuk memetakan setiap tugas ke salah satu server worker.
     *   Mengirimkan permintaan eksekusi secara paralel ke setiap server worker sesuai dengan hasil pemetaan.
     *   Mengumpulkan hasil dan menghitung metrik kinerja.
 
@@ -93,12 +93,7 @@ Sebelum menjalankan, pastikan perangkat Anda memenuhi syarat berikut:
 
 6.  **Jalankan Scheduler:**
     Buka terminal di direktori proyek Anda dan jalankan salah satu dari perintah berikut:
-
-    *   **Untuk menjalankan algoritma Round Robin:**
-        ```bash
-        uv run python scheduler.py rr
-        ```
-
+    
     *   **Untuk menjalankan algoritma ErWCA:**
         ```bash
         uv run python scheduler.py erwca
@@ -121,10 +116,8 @@ Terminal Anda akan menampilkan log eksekusi dan diakhiri dengan rangkuman metrik
 
 ### 2. File Hasil CSV
 
-Sebuah file CSV baru akan dibuat di direktori proyek Anda (misalnya, `results_erwca.csv` atau `results_rr.csv`) dengan format yang merinci eksekusi setiap tugas.
+Sebuah file CSV baru akan dibuat di direktori proyek Anda (misalnya, `results_erwca.csv`) dengan format yang merinci eksekusi setiap tugas.
 
 
 <img width="1254" height="677" alt="Screenshot 2025-11-16 210929" src="https://github.com/user-attachments/assets/d059c2d4-7904-42af-9bd7-42e37bb09efc" />
 
-
-<img width="1193" height="703" alt="Screenshot 2025-11-16 210943" src="https://github.com/user-attachments/assets/dcbed8db-de82-40c3-9d1d-a23b53717107" />
