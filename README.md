@@ -66,28 +66,28 @@ Sebelum menjalankan, pastikan perangkat Anda memenuhi syarat berikut:
 
 4.  **Siapkan Dataset:**
     Pastikan file `dataset.txt` ada di direktori utama dan berisi daftar *task index* (angka 1-10), satu per baris.
-```
-6
-5
-8
-2
-10
-3
-4
-4
-7
-3
-9
-1
-7
-9
-1
-8
-2
-5
-6
-10
-```
+    ```
+    6
+    5
+    8
+    2
+    10
+    3
+    4
+    4
+    7
+    3
+    9
+    1
+    7
+    9
+    1
+    8
+    2
+    5
+    6
+    10
+    ```
 
 5.  **Aktifkan VPN ITS:**
     Pastikan VPN Anda sudah terhubung.
