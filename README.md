@@ -1,4 +1,4 @@
-# Pengujian Algoritma Task Scheduler pada Server IT
+# Pengujian Algoritma Task Scheduler pada Server
 
 ### SOKA B Kelompok D - ErWCA
 
