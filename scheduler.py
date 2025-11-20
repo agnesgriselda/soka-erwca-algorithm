@@ -6,21 +6,20 @@ import csv
 import pandas as pd
 import sys
 import os
-import argparse
 from dotenv import load_dotenv
 from collections import namedtuple
 
-from erwca_rr_algorithm import SchedulerAlgorithm
+# Impor logika algoritma Anda
+from erwca_algorithm import SchedulerAlgorithm
 
-# --- Konfigurasi Lingkungan ---
+# --- Konfigurasi Lingkungan (sama seperti referensi) ---
 load_dotenv()
 
-# DIUBAH: Mengganti 'cpu' menjadi 'cpu_cores' agar konsisten
 VM_SPECS = {
-    'vm1': {'ip': os.getenv("VM1_IP"), 'cpu_cores': 1, 'ram_gb': 1},
-    'vm2': {'ip': os.getenv("VM2_IP"), 'cpu_cores': 2, 'ram_gb': 2},
-    'vm3': {'ip': os.getenv("VM3_IP"), 'cpu_cores': 4, 'ram_gb': 4},
-    'vm4': {'ip': os.getenv("VM4_IP"), 'cpu_cores': 8, 'ram_gb': 4},
+    'vm1': {'ip': os.getenv("VM1_IP"), 'cpu': 1, 'ram_gb': 1},
+    'vm2': {'ip': os.getenv("VM2_IP"), 'cpu': 2, 'ram_gb': 2},
+    'vm3': {'ip': os.getenv("VM3_IP"), 'cpu': 4, 'ram_gb': 4},
+    'vm4': {'ip': os.getenv("VM4_IP"), 'cpu': 8, 'ram_gb': 4},
 }
 VM_PORT = 5000
 DATASET_FILE = 'dataset.txt'
@@ -28,7 +27,7 @@ DATASET_FILE = 'dataset.txt'
 VM = namedtuple('VM', ['name', 'ip', 'cpu_cores', 'ram_gb'])
 Task = namedtuple('Task', ['id', 'name', 'index', 'cpu_load'])
 
-# --- (Sisa file ini sama persis seperti sebelumnya, tidak perlu diubah) ---
+# --- (Fungsi load_tasks, execute_task_on_vm, write_results_to_csv, calculate_and_print_metrics tetap sama persis) ---
 def load_tasks(dataset_path: str) -> list[Task]:
     if not os.path.exists(dataset_path):
         print(f"Error: File dataset '{dataset_path}' tidak ditemukan.", file=sys.stderr)
@@ -73,9 +72,9 @@ async def execute_task_on_vm(task: Task, vm: VM, client: httpx.AsyncClient,
             "finish_time": task_finish_time, "wait_time": task_wait_time
         })
 
-def write_results_to_csv(results_list: list, algorithm: str):
+def write_results_to_csv(results_list: list):
     if not results_list: return
-    filename = f"results_{algorithm}.csv"
+    filename = "results_erwca.csv"  # Nama file sekarang statis
     headers = ["index", "task_name", "vm_assigned", "start_time", "exec_time", "finish_time", "wait_time"]
     results_list.sort(key=lambda x: x['start_time'])
     min_start_time = results_list[0]['start_time']
@@ -94,6 +93,7 @@ def write_results_to_csv(results_list: list, algorithm: str):
     print(f"\nData hasil eksekusi disimpan ke {filename}")
 
 def calculate_and_print_metrics(results_list: list, vms: list[VM], total_schedule_time: float):
+    # ... (Isi fungsi ini sama persis seperti di jawaban sebelumnya)
     df = pd.DataFrame(results_list); success_df = df[df['exec_time'] > 0].copy()
     if success_df.empty:
         print("Tidak ada tugas yang berhasil diselesaikan."); return
@@ -132,21 +132,20 @@ def calculate_and_print_metrics(results_list: list, vms: list[VM], total_schedul
     print(f"Imbalance Degree          : {imbalance_degree:.4f}")
     print(f"Resource Utilization (CPU): {resource_utilization:.4%}")
 
-async def main(algorithm: str):
-    # DIUBAH: Menggunakan 'cpu_cores' saat membuat objek VM
-    vms = [VM(name, spec['ip'], spec['cpu_cores'], spec['ram_gb']) for name, spec in VM_SPECS.items()]
+# --- Fungsi Main (Orchestrator) yang disederhanakan ---
+async def main():
+    vms = [VM(name, spec['ip'], spec['cpu'], spec['ram_gb']) 
+            for name, spec in VM_SPECS.items()]
+    
     tasks = load_tasks(DATASET_FILE)
     if not tasks: return
 
+    # Langsung panggil algoritma ErWCA
     scheduler = SchedulerAlgorithm(vms)
-    print(f"\nMenjalankan penjadwalan dengan algoritma: {algorithm.upper()}")
-    if algorithm == 'rr':
-        best_assignment = scheduler.schedule_round_robin(tasks)
-    elif algorithm == 'erwca':
-        best_assignment = scheduler.schedule_erwca(tasks)
-    else:
-        print("Algoritma tidak valid."); return
+    print("\nMenjalankan penjadwalan dengan algoritma: ERWCA")
+    best_assignment = scheduler.schedule_erwca(tasks)
 
+    # Sisanya sama seperti sebelumnya
     tasks_dict = {task.id: task for task in tasks}
     vms_dict = {vm.name: vm for vm in vms}
 
@@ -163,11 +162,9 @@ async def main(algorithm: str):
         
         print(f"\nSemua eksekusi tugas selesai dalam {total_schedule_time:.4f} detik.")
     
-    write_results_to_csv(results_list, algorithm)
+    write_results_to_csv(results_list)
     calculate_and_print_metrics(results_list, vms, total_schedule_time)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Task Scheduler")
-    parser.add_argument('algorithm', type=str, choices=['rr', 'erwca'], help="Pilih algoritma: 'rr' atau 'erwca'")
-    args = parser.parse_args()
-    asyncio.run(main(args.algorithm))
+    # Tidak perlu lagi parser argumen
+    asyncio.run(main())

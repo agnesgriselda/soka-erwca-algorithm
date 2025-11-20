@@ -96,7 +96,7 @@ Sebelum menjalankan, pastikan perangkat Anda memenuhi syarat berikut:
     
     *   **Untuk menjalankan algoritma ErWCA:**
         ```bash
-        uv run python scheduler.py erwca
+        uv run python scheduler.py
         ```
 
 ## Hasil yang Diharapkan
