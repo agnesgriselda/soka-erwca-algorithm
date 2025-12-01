@@ -121,3 +121,48 @@ Sebuah file CSV baru akan dibuat di direktori proyek Anda (misalnya, `results_er
 
 <img width="1254" height="677" alt="Screenshot 2025-11-16 210929" src="https://github.com/user-attachments/assets/d059c2d4-7904-42af-9bd7-42e37bb09efc" />
 
+## Hasil Uji Coba
+
+Berikut adalah hasil dari **10 kali eksekusi** algoritma ErWCA pada dataset yang sama. Setiap eksekusi menghasilkan nilai yang sedikit berbeda karena sifat stokastik (acak) dari algoritma, yang secara sengaja memilih dari beberapa opsi terbaik untuk mengeksplorasi ruang solusi.
+
+### Tabel Rangkuman 10 Uji Coba
+
+| Uji Coba # | Makespan (detik) | Imbalance Degree | Throughput (tugas/detik) | Resource Utilization (%) |
+| :---: | :---: | :---: | :---: | :---: |
+| 1     | 53.7190          | 2.1117           | 0.3723                   | 69.95%                   |
+| 2     | 56.3430          | 1.6748           | 0.3550                   | 55.61%                   |
+| 3     | 38.1090          | 1.4213           | 0.5248                   | 56.96%                   |
+| 4     | 34.4220          | 1.4233           | 0.5810                   | 69.17%                   |
+| 5     | 42.0630          | 1.2359           | 0.4755                   | 59.12%                   |
+| 6     | 31.3130          | 1.6532           | 0.6387                   | 74.19%                   |
+| 7     | 49.9220          | 1.3419           | 0.4006                   | 58.31%                   |
+| 8     | 73.7500          | 1.0232           | 0.2712                   | 42.10%                   |
+| 9     | 45.8750          | 1.6032           | 0.4360                   | 65.00%                   |
+| 10    | 40.1570          | 0.9569           | 0.4980                   | 50.41%                   |
+
+__dapat dilihat juga di file all_runs.csv__
+
+### Analisis Statistik Hasil
+
+Untuk mendapatkan gambaran kinerja yang komprehensif, berikut adalah statistik kunci dari 10 kali uji coba tersebut:
+
+*   **Makespan (Waktu Total):**
+    *   **Rata-rata:** **46.57 detik**
+    *   **Terbaik (Min):** 31.31 detik (Uji Coba #6)
+    *   **Terburuk (Max):** 73.75 detik (Uji Coba #8)
+    *   **Standar Deviasi:** 12.33 detik (menunjukkan variabilitas yang cukup signifikan)
+
+*   **Imbalance Degree:**
+    *   **Rata-rata:** **1.44**
+    *   **Terbaik (Paling Seimbang):** 0.96 (Uji Coba #10)
+    *   **Terburuk (Paling Tidak Seimbang):** 2.11 (Uji Coba #1)
+
+### Pembahasan Hasil
+
+1.  **Kinerja Rata-rata yang Baik:** Secara rata-rata, algoritma ErWCA mampu menyelesaikan seluruh tugas dalam waktu **46.6 detik**. Ini menjadi metrik utama yang menunjukkan kinerja umum dari algoritma.
+
+2.  **Sifat Stokastik Terbukti:** Variasi hasil makespan yang signifikan (dari 31 detik hingga 74 detik) membuktikan bahwa elemen acak dalam algoritma bekerja. Ini menunjukkan bahwa ErWCA berhasil **mengeksplorasi berbagai jalur solusi**. Terkadang ia menemukan solusi yang sangat optimal dengan cepat (seperti pada Uji Coba #6), dan terkadang ia memerlukan waktu lebih lama.
+
+3.  **Trade-off Kinerja yang Jelas:** Nilai *Imbalance Degree* secara konsisten tinggi (rata-rata 1.44). Ini adalah bukti dari **trade-off** yang dilakukan algoritma: ia sengaja membebani server yang lebih kuat untuk mengejar makespan yang lebih rendah, sehingga mengorbankan keseimbangan beban kerja antar server.
+
+4.  **Korelasi Kinerja:** Terdapat korelasi antara Makespan dan Resource Utilization. Uji coba dengan makespan terendah (#6, 31.3 detik) memiliki **Resource Utilization tertinggi (74.19%)**. Sebaliknya, uji coba dengan makespan terlama (#8, 73.8 detik) memiliki **Resource Utilization terendah (42.10%)**. Ini sangat logis: menyelesaikan pekerjaan yang sama dalam waktu yang lebih singkat berarti sumber daya digunakan secara lebih intensif dan efisien.
