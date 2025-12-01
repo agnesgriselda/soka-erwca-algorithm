@@ -12,5 +12,4 @@ wheels/
 
 # Secret Files :>
 dataset.txt
-results_erwca.csv
-results_rr.csv
+results_erwca.c
